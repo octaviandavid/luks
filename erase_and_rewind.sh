@@ -6,6 +6,10 @@ fi
 
 export DEV="/dev/${DISK}"
 
+lsblk
+
+sgdisk --print $DEV
+
 echo "WARNING! Formatting drive ${DEV}... Press ENTER to continue."
 read
 
