@@ -49,7 +49,7 @@ sgdisk --new=4:0:+768M $DEV
 sgdisk --typecode=4:8301 $DEV 
 sgdisk --change-name=4:/boot $DEV
 
-sgdisk --new=5:0:0 $DEV
+sgdisk --new=5:0:+125G $DEV
 sgdisk --typecode=5:8301 $DEV
 sgdisk --change-name=5:rootfs $DEV
 
