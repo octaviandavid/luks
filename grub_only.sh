@@ -33,26 +33,25 @@ read
 partprobe $DEV
 
 # execution
-sgdisk --zap-all $DEV
-
-
-sgdisk --new=1:0:+512M $DEV
-sgdisk --typecode=1:8301 $DEV 
-sgdisk --change-name=1:GRUB $DEV
-
-sgdisk --new=2:0:+10G $DEV
-sgdisk --typecode=2:8301 $DEV 
-sgdisk --change-name=2:root $DEV
+#sgdisk --zap-all $DEV
+#
+#sgdisk --new=1:0:+512M $DEV
+#sgdisk --typecode=1:8301 $DEV 
+#sgdisk --change-name=1:GRUB $DEV
+#
+#sgdisk --new=2:0:+10G $DEV
+#sgdisk --typecode=2:8301 $DEV 
+#sgdisk --change-name=2:root $DEV
 
 #sgdisk --hybrid 1 $DEV
 
 sgdisk --print $DEV
 
 ls /dev/mapper/
-
-mkfs.fat -F32 ${DEVP}1  
-
-mkfs.ext4 -L root ${DEVP}2
+#
+#mkfs.fat -F32 ${DEVP}1  
+#
+#mkfs.ext4 -L root ${DEVP}2
 
 mount ${DEVP}2 /mnt
 
@@ -60,7 +59,7 @@ mkdir -p /mnt/boot/EFI
 
 mount ${DEVP}1 /mnt/boot/EFI
 
-pacstrap /mnt base linux linux-firmware efibootmgr grub tree os-prober
+#pacstrap /mnt base linux linux-firmware efibootmgr grub tree os-prober
 
 
 
