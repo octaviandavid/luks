@@ -60,15 +60,7 @@ mkdir -p /mnt/boot/EFI
 
 mount ${DEVP}1 /mnt/boot/EFI
 
-pacstrap /mnt base linux linux-firmware efibootmgr
-
-arch-chroot /mnt /bin/bash
-
-# in chroot
-pacman -Q grub || pacman -S --noconfirm grub 
-
-grub-install --root-directory=/boot /dev/sda
-grub-mkconfig -o /boot/grub/grub.cfg
+pacstrap /mnt base linux linux-firmware efibootmgr grub tree os-prober
 
 
 
