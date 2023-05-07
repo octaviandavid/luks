@@ -29,6 +29,9 @@ sgdisk --print $DEV
 echo "WARNING! Formatting drive ${DEV}... Press ENTER to continue."
 read
 
+
+partprobe $DEV
+
 # execution
 sgdisk --zap-all $DEV
 
@@ -37,6 +40,9 @@ sgdisk --new=1:0:+512M $DEV
 sgdisk --typecode=1:8301 $DEV 
 sgdisk --change-name=1:GRUB $DEV
 
+sgdisk --new=2:0:+10G $DEV
+sgdisk --typecode=2:8301 $DEV 
+sgdisk --change-name=2:root $DEV
 
 #sgdisk --hybrid 1 $DEV
 
@@ -46,13 +52,26 @@ ls /dev/mapper/
 
 mkfs.fat -F32 ${DEVP}1  
 
-mkdir -p /mnt/boot
+mkfs.ext4 -L root ${DEVP}2
 
-mount ${DEVP}1 /mnt/boot
+mount ${DEVP}2 /mnt
 
-pacman -Q grub || pacman -S --noconfirm grub   
+mkdir -p /mnt/boot/EFI
 
-sudo grub-install --root-directory=/mnt/boot /dev/sda
+mount ${DEVP}1 /mnt/boot/EFI
+
+pacstrap /mnt base linux linux-firmware efibootmgr
+
+arch-chroot /mnt /bin/bash
+
+# in chroot
+pacman -Q grub || pacman -S --noconfirm grub 
+
+grub-install --root-directory=/boot /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+
+
+
 
 
 
