@@ -6,6 +6,11 @@ sudo arch-chroot /mnt /bin/bash
 
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
 
+# better not uncomment os prober 
+#sed -i '/^#GRUB_DISABLE_OS_PROBER/s/^#//g' /etc/default/grub
+# uncomment luks support
+sed -i '/^#GRUB_ENABLE_CRYPTODISK/s/^#//g' /etc/default/grub
+
 grub-mkconfig -o /boot/grub/grub.cfg
 
 tree /boot -L 2
