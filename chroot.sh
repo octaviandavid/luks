@@ -13,6 +13,10 @@ tree /boot -L 2
 cd /root
 curl -s -L https://github.com/vinceliuice/grub2-themes/archive/refs/tags/2022-10-30.tar.gz | tar -xzvf -
 cd grub2-themes-2022-10-30
+
+# download wallpaper as background.jpg
+#pacman -S imagemagick # for convert
+
 ./install.sh -b -t tela
 
 

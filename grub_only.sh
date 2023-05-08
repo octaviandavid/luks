@@ -41,7 +41,11 @@ partprobe $DEV
 #
 #sgdisk --new=2:0:+10G $DEV
 #sgdisk --typecode=2:8301 $DEV 
-#sgdisk --change-name=2:root $DEV
+sgdisk --change-name=2:arch $DEV
+
+sgdisk --new=3:0:+10G $DEV
+sgdisk --typecode=3:8301 $DEV 
+sgdisk --change-name=3:eos $DEV
 
 #sgdisk --hybrid 1 $DEV
 
@@ -51,7 +55,8 @@ ls /dev/mapper/
 #
 #mkfs.fat -F32 ${DEVP}1  
 #
-#mkfs.ext4 -L root ${DEVP}2
+#mkfs.ext4 -L arch ${DEVP}2
+mkfs.ext4 -L eos ${DEVP}3
 
 mount ${DEVP}2 /mnt
 
@@ -59,7 +64,7 @@ mkdir -p /mnt/boot/EFI
 
 mount ${DEVP}1 /mnt/boot/EFI
 
-#pacstrap /mnt base linux linux-firmware efibootmgr grub tree os-prober
+#pacstrap /mnt base linux linux-firmware efibootmgr grub tree os-prober vim
 
 
 
